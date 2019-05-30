@@ -21,6 +21,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators
 
             // static methods
             { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.GetRoot), Type.EmptyTypes), "hierarchyid::GetRoot" },
+            { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.Parse), new[] { typeof(string) }), "hierarchyid::Parse" },
         };
 
         public virtual Expression Translate(MethodCallExpression methodCallExpression)
