@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -19,7 +21,8 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             new EntityFrameworkRelationalServicesBuilder(serviceCollection)
                 .TryAddProviderSpecificServices(
-                    x => x.TryAddSingletonEnumerable<IMethodCallTranslatorPlugin, SqlServerHierarchyIdMethodCallTranslatorPlugin>());
+                    x => x.TryAddSingletonEnumerable<IMethodCallTranslatorPlugin, SqlServerHierarchyIdMethodCallTranslatorPlugin>()
+                        .TryAddSingletonEnumerable<IRelationalTypeMappingSourcePlugin, SqlServerHierarchyIdTypeMappingSourcePlugin>());
 
             return serviceCollection;
         }

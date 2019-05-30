@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bricelam.EntityFrameworkCore.Properties;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
@@ -35,7 +37,9 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
                 using (var scope = internalServiceProvider.CreateScope())
                 {
                     if (scope.ServiceProvider.GetService<IEnumerable<IMethodCallTranslatorPlugin>>()
-                            ?.Any(s => s is SqlServerHierarchyIdMethodCallTranslatorPlugin) != true)
+                            ?.Any(s => s is SqlServerHierarchyIdMethodCallTranslatorPlugin) != true ||
+                        scope.ServiceProvider.GetService<IEnumerable<IRelationalTypeMappingSourcePlugin>>()
+                           ?.Any(s => s is SqlServerHierarchyIdTypeMappingSourcePlugin) != true)
                     {
                         throw new InvalidOperationException(Resources.ServicesMissing);
                     }

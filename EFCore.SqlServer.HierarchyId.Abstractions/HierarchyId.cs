@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.SqlServer.Types;
 
 namespace Bricelam.EntityFrameworkCore
@@ -20,6 +21,18 @@ namespace Bricelam.EntityFrameworkCore
 
         public static HierarchyId Parse(string input)
             => Wrap(SqlHierarchyId.Parse(input));
+
+        public static HierarchyId Read(BinaryReader reader)
+        {
+            var hid = new SqlHierarchyId();
+            hid.Read(reader);
+            return Wrap(hid);
+        }
+
+        public void Write(BinaryWriter writer)
+        {
+            _value.Write(writer);
+        }
 
         public int CompareTo(object obj)
             => _value.CompareTo(
