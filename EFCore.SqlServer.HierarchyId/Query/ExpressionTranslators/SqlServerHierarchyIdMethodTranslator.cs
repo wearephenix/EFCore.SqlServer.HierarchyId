@@ -12,12 +12,15 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators
     {
         private static readonly IDictionary<MethodInfo, string> _methodToFunctionName = new Dictionary<MethodInfo, string>
         {
+            // instance methods
             { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.GetAncestor), new[] { typeof(int) }), "GetAncestor" },
             { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.GetDescendant), new[] { typeof(HierarchyId), typeof(HierarchyId) }), "GetDescendant" },
             { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.GetLevel), Type.EmptyTypes), "GetLevel" },
             { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.GetReparentedValue), new[] { typeof(HierarchyId), typeof(HierarchyId) }), "GetReparentedValue" },
-            { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.GetRoot), Type.EmptyTypes), "GetRoot" },
-            { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.IsDescendantOf), new[] { typeof(HierarchyId) }), "IsDescendantOf" }
+            { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.IsDescendantOf), new[] { typeof(HierarchyId) }), "IsDescendantOf" },
+
+            // static methods
+            { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.GetRoot), Type.EmptyTypes), "hierarchyid::GetRoot" },
         };
 
         public virtual Expression Translate(MethodCallExpression methodCallExpression)
