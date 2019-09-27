@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bricelam.EntityFrameworkCore.Properties;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -11,23 +11,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
 {
-    internal class SqlServerHierarchyIdOptionsExtension : IDbContextOptionsExtensionWithDebugInfo
+    internal class SqlServerHierarchyIdOptionsExtension : IDbContextOptionsExtension
     {
-        public virtual string LogFragment
-            => "using HierarchyId ";
+        public DbContextOptionsExtensionInfo _info;
 
-        public virtual bool ApplyServices(IServiceCollection services)
+        public DbContextOptionsExtensionInfo Info => _info ??= new ExtensionInfo(this);
+
+        public virtual void ApplyServices(IServiceCollection services)
         {
             services.AddEntityFrameworkSqlServerHierarchyId();
-
-            return false;
         }
-
-        public virtual long GetServiceProviderHashCode()
-            => 0;
-
-        public virtual void PopulateDebugInfo(IDictionary<string, string> debugInfo)
-            => debugInfo["SqlServer:" + nameof(SqlServerHierarchyIdDbContextOptionsBuilderExtensions.UseHierarchyId)] = "1";
 
         public virtual void Validate(IDbContextOptions options)
         {
@@ -45,6 +38,26 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
                     }
                 }
             }
+        }
+
+        private sealed class ExtensionInfo : DbContextOptionsExtensionInfo
+        {
+            public ExtensionInfo(IDbContextOptionsExtension extension)
+                : base(extension)
+            {
+            }
+
+            private new SqlServerHierarchyIdOptionsExtension Extension
+                => (SqlServerHierarchyIdOptionsExtension)base.Extension;
+
+            public override bool IsDatabaseProvider => false;
+
+            public override long GetServiceProviderHashCode() => 0;
+
+            public override void PopulateDebugInfo(IDictionary<string, string> debugInfo)
+            => debugInfo["SqlServer:" + nameof(SqlServerHierarchyIdDbContextOptionsBuilderExtensions.UseHierarchyId)] = "1";
+
+            public override string LogFragment => "using HierarchyId ";
         }
     }
 }

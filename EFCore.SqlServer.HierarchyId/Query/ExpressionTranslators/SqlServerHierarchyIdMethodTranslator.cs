@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Reflection;
 using Bricelam.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Expressions;
-using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators
 {
@@ -25,21 +26,70 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators
             { typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.Parse), new[] { typeof(string) }), "hierarchyid::Parse" },
         };
 
-        public virtual Expression Translate(MethodCallExpression methodCallExpression)
-        {
-            var callingType = methodCallExpression.Object?.Type ?? methodCallExpression.Method.DeclaringType;
+        private readonly IRelationalTypeMappingSource _typeMappingSource;
+        private readonly ISqlExpressionFactory _sqlExpressionFactory;
 
-            if (typeof(HierarchyId).IsAssignableFrom(callingType) &&
-                _methodToFunctionName.TryGetValue(methodCallExpression.Method, out var functionName))
+        public SqlServerHierarchyIdMethodTranslator(
+            IRelationalTypeMappingSource typeMappingSource,
+            ISqlExpressionFactory sqlExpressionFactory)
+        {
+            _typeMappingSource = typeMappingSource;
+            _sqlExpressionFactory = sqlExpressionFactory;
+        }
+
+        public SqlExpression Translate(SqlExpression instance, MethodInfo method, IReadOnlyList<SqlExpression> arguments)
+        {
+            // instance is null for static methods like Parse
+            const string storeType = SqlServerHierarchyIdTypeMappingSourcePlugin.SqlServerTypeName;
+            var callingType = instance?.Type ?? method.DeclaringType;
+            if (typeof(HierarchyId).IsAssignableFrom(callingType)
+                && _methodToFunctionName.TryGetValue(method, out var functionName))
             {
-                return new SqlFunctionExpression(
-                    methodCallExpression.Object,
+                if (instance != null)
+                {
+                    var instanceMapping = _typeMappingSource.FindMapping(instance.Type, storeType);
+                    instance = _sqlExpressionFactory.ApplyTypeMapping(instance, instanceMapping);
+                }
+
+                var typeMappedArguments = new List<SqlExpression>();
+                foreach (var argument in arguments)
+                {
+                    var argumentTypeMapping = typeof(HierarchyId).IsAssignableFrom(argument.Type)
+                        ? _typeMappingSource.FindMapping(argument.Type, storeType)
+                        : _typeMappingSource.FindMapping(argument.Type);
+                    var mappedArgument = _sqlExpressionFactory.ApplyTypeMapping(argument, argumentTypeMapping);
+                    typeMappedArguments.Add(mappedArgument);
+                }
+
+                var resultTypeMapping = typeof(HierarchyId).IsAssignableFrom(method.ReturnType)
+                    ? _typeMappingSource.FindMapping(method.ReturnType, storeType)
+                    : _typeMappingSource.FindMapping(method.ReturnType);
+
+                return _sqlExpressionFactory.Function(
+                    instance,
                     functionName,
-                    methodCallExpression.Type,
-                    methodCallExpression.Arguments);
+                    simplify(arguments),
+                    method.ReturnType,
+                    resultTypeMapping);
             }
 
             return null;
+        }
+
+        private IEnumerable<SqlExpression> simplify(IEnumerable<SqlExpression> arguments)
+        {
+            foreach (var argument in arguments)
+            {
+                if (argument is SqlConstantExpression constant
+                    && constant.Value is HierarchyId hierarchyId)
+                {
+                    yield return _sqlExpressionFactory.Fragment($"'{hierarchyId}'");
+                }
+                else
+                {
+                    yield return argument;
+                }
+            }
         }
     }
 }

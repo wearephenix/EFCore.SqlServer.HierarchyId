@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>Bricelam.EntityFrameworkCore.SqlServer.HierarchyId.Abstractions</AssemblyName>
     <RootNamespace>Bricelam.EntityFrameworkCore</RootNamespace>
     <Authors>Brice Lambson</Authors>
@@ -19,7 +19,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="dotMorten.Microsoft.SqlServer.Types" Version="1.1.0" />
   </ItemGroup>
 
