@@ -11,7 +11,7 @@ namespace Microsoft.EntityFrameworkCore
         /// <summary>
         /// Enable HierarchyId mappings.
         /// </summary>
-        /// <param name="optionsBuilder">The build being used to configure SQL Server.</param>
+        /// <param name="optionsBuilder">The builder being used to configure SQL Server.</param>
         /// <returns>The options builder so that further configuration can be chained.</returns>
         public static SqlServerDbContextOptionsBuilder UseHierarchyId(
             this SqlServerDbContextOptionsBuilder optionsBuilder)
