@@ -1,4 +1,4 @@
-﻿namespace Bricelam.EntityFrameworkCore.Test.Models
+﻿namespace Microsoft.EntityFrameworkCore.SqlServer.Test.Models
 {
     class Patriarch
     {

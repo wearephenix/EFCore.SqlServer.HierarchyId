@@ -5,9 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>Bricelam.EntityFrameworkCore.SqlServer.HierarchyId.Test</AssemblyName>
+    <AssemblyName>EntityFrameworkCore.SqlServer.HierarchyId.Test</AssemblyName>
 
-    <RootNamespace>Bricelam.EntityFrameworkCore</RootNamespace>
+    <RootNamespace>Microsoft.EntityFrameworkCore.SqlServer</RootNamespace>
     <Features>strict</Features>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

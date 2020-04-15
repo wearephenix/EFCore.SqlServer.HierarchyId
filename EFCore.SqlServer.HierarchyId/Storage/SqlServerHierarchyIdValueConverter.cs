@@ -1,6 +1,5 @@
 using System.Data.SqlTypes;
 using System.IO;
-using Bricelam.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Microsoft.EntityFrameworkCore.SqlServer.Storage

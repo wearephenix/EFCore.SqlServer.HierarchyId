@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 
-namespace Bricelam.EntityFrameworkCore.Test.Logging
+namespace Microsoft.EntityFrameworkCore.SqlServer.Test.Logging
 {
     public class TestLogger : ILogger
     {

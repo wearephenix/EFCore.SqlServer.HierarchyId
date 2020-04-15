@@ -1,7 +1,6 @@
-﻿using Bricelam.EntityFrameworkCore.Test.Logging;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore.SqlServer.Test.Logging;
 
-namespace Bricelam.EntityFrameworkCore.Test.Models
+namespace Microsoft.EntityFrameworkCore.SqlServer.Test.Models
 {
     class AbrahamicContext : DbContext
     {

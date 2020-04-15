@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
-using Bricelam.EntityFrameworkCore.Test.Models;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Test.Models;
 using Xunit;
 
-namespace Bricelam.EntityFrameworkCore
+namespace Microsoft.EntityFrameworkCore.SqlServer
 {
     public class QueryTests : IDisposable
     {

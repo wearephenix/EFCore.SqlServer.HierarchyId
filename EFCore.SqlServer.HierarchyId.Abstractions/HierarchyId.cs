@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.SqlServer.Types;
 
-namespace Bricelam.EntityFrameworkCore
+namespace Microsoft.EntityFrameworkCore
 {
     /// <summary>
     /// Represents a position in a hierarchical structure, specifying depth and breadth.
