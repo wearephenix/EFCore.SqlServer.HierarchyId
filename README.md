@@ -1,9 +1,7 @@
 EntityFrameworkCore.SqlServer.HierarchyId
 ========================================
 
-![build status](https://img.shields.io/github/workflow/status/efcore/EFCore.SqlServer.HierarchyId/.NET%20Core/master)
-
-[![latest version](https://img.shields.io/nuget/v/EntityFrameworkCore.SqlServer.HierarchyId)](https://www.nuget.org/packages/EntityFrameworkCore.SqlServer.HierarchyId)
+![build status](https://img.shields.io/github/workflow/status/efcore/EFCore.SqlServer.HierarchyId/.NET%20Core/master) [![latest version](https://img.shields.io/nuget/v/EntityFrameworkCore.SqlServer.HierarchyId)](https://www.nuget.org/packages/EntityFrameworkCore.SqlServer.HierarchyId)
 
 Adds hierarchyid support to the SQL Server EF Core provider.
 
