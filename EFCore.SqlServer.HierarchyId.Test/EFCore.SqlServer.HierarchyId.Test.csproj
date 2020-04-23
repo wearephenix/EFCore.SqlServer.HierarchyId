@@ -1,12 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
-
+    <TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
     <IsPackable>false</IsPackable>
-
     <AssemblyName>EntityFrameworkCore.SqlServer.HierarchyId.Test</AssemblyName>
-
     <RootNamespace>Microsoft.EntityFrameworkCore.SqlServer</RootNamespace>
     <Features>strict</Features>
     <LangVersion>latest</LangVersion>
