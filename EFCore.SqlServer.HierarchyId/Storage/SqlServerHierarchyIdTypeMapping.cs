@@ -1,19 +1,26 @@
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlTypes;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Microsoft.EntityFrameworkCore.SqlServer.Storage
 {
     internal class SqlServerHierarchyIdTypeMapping : RelationalTypeMapping
     {
         private static readonly MethodInfo _getSqlBytes
-            = typeof(SqlDataReader).GetTypeInfo().GetDeclaredMethod(nameof(SqlDataReader.GetSqlBytes));
+            = typeof(SqlDataReader).GetRuntimeMethod(nameof(SqlDataReader.GetSqlBytes), new[] { typeof(int) });
+
+        private static readonly MethodInfo _parseHierarchyId
+            = typeof(HierarchyId).GetRuntimeMethod(nameof(HierarchyId.Parse), new[] { typeof(string) });
+
+        private static readonly SqlServerHierarchyIdValueConverter _valueConverter = new SqlServerHierarchyIdValueConverter();
 
         private static Action<DbParameter, SqlDbType> _sqlDbTypeSetter;
         private static Action<DbParameter, string> _udtTypeNameSetter;
@@ -27,9 +34,9 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Storage
         {
             return new RelationalTypeMappingParameters(
                 new CoreTypeMappingParameters(
-                    clrType,
-                    new SqlServerHierarchyIdValueConverter()
-                    ),
+                    clrType: clrType,
+                    converter: null //this gets the generatecodeliteral to run
+                ),
                 storeType);
         }
 
@@ -64,10 +71,49 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Storage
             return _getSqlBytes;
         }
 
+        public override Expression GenerateCodeLiteral(object value)
+        {
+            return Expression.Call(
+                _parseHierarchyId,
+                Expression.Constant(value.ToString(), typeof(string))
+            );
+        }
+
         protected override string GenerateNonNullSqlLiteral(object value)
         {
-            value = Converter.ConvertFromProvider(value);
+            //this appears to only be called when using the update-database
+            //command, and the value is already a hierarchyid
             return $"'{value}'";
+        }
+
+        public override DbParameter CreateParameter(DbCommand command, string name, object value, bool? nullable = null)
+        {
+            var parameter = command.CreateParameter();
+            parameter.Direction = ParameterDirection.Input;
+            parameter.ParameterName = name;
+
+            parameter.Value = value == null
+                ? DBNull.Value
+                : _valueConverter.ConvertToProvider(value);
+
+            if (nullable.HasValue)
+            {
+                parameter.IsNullable = nullable.Value;
+            }
+
+            ConfigureParameter(parameter);
+
+            return parameter;
+        }
+
+        public override Expression CustomizeDataReaderExpression(Expression expression)
+        {
+            //because _getSqlBytes is specified as the datareader method, 
+            //the value will need to be converted from sqlbytes to hierarchyid
+            return ReplacingExpressionVisitor.Replace(
+                _valueConverter.ConvertFromProviderExpression.Parameters.Single(),
+                expression,
+                _valueConverter.ConvertFromProviderExpression.Body);
         }
 
         private static Action<DbParameter, SqlDbType> CreateSqlDbTypeAccessor(Type paramType)
