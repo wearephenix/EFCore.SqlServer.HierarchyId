@@ -19,6 +19,7 @@
     <Features>strict</Features>
     <LangVersion>latest</LangVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>https://github.com/efcore/EFCore.SqlServer.HierarchyId/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
