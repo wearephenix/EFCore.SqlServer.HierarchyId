@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://github.com/efcore/EFCore.SqlServer.HierarchyId</projectUrl>
+    <description>$description$</description>
+    <releaseNotes>https://github.com/efcore/EFCore.SqlServer.HierarchyId/releases</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>EFCore SQL Server HierarchyId</tags>
+    <repository type="git" url="$repositoryUrl$" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="EntityFrameworkCore.SqlServer.HierarchyId.Abstractions" version="$version$" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="[$efcoreVersion$,5.0.0-0)" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\netstandard2.0\$id$.dll" target="lib/netstandard2.0" />
+    <file src="bin\$configuration$\netstandard2.0\$id$.xml" target="lib/netstandard2.0" />
+    <file src="build\**\*" target="build/" />    
+  </files>
+</package>
