@@ -14,6 +14,8 @@ The latest stable version is available on [NuGet](https://www.nuget.org/packages
 dotnet add package EntityFrameworkCore.SqlServer.HierarchyId
 ```
 
+Use the `--version` option to specify a [preview version](https://www.nuget.org/packages/EntityFrameworkCore.SqlServer.HierarchyId/absoluteLatest) to install.
+
 Compatibility
 -------------
 
