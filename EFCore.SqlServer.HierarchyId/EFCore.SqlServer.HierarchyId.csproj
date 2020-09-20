@@ -16,7 +16,6 @@
     <Features>strict</Features>
     <LangVersion>latest</LangVersion>
     <NuspecFile>$(MSBuildProjectName).nuspec</NuspecFile>
-    <NoWarn>$(NoWarn);NU5104</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
