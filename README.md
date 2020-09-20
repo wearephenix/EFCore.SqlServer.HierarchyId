@@ -14,6 +14,17 @@ The latest stable version is available on [NuGet](https://www.nuget.org/packages
 dotnet add package EntityFrameworkCore.SqlServer.HierarchyId
 ```
 
+Compatibility
+-------------
+
+The following table show which version of this library to use with which version of EF Core.
+
+| EF Core | Version to use  |
+| ------- | --------------- |
+| 5.0     | 2.x             |
+| 3.1     | 1.x             |
+| 2.1     | (not supported) |
+
 Usage
 -----
 

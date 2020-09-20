@@ -1,25 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>EntityFrameworkCore.SqlServer.HierarchyId</AssemblyName>
     <RootNamespace>Microsoft.EntityFrameworkCore.SqlServer</RootNamespace>
     <Authors>Brice Lambson, et al.</Authors>
     <Description>Adds hierarchyid support to the SQL Server EF Core provider</Description>
+    <PackageProjectUrl>https://github.com/efcore/EFCore.SqlServer.HierarchyId</PackageProjectUrl>
+    <PackageTags>EFCore;SQL Server;HierarchyId</PackageTags>
     <RepositoryUrl>https://github.com/efcore/EFCore.SqlServer.HierarchyId.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <Copyright>© 2020 Brice Lambson, et al. All rights reserved.</Copyright>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.1</Version>
+    <Version>2.0.0-rc.1</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Features>strict</Features>
     <LangVersion>latest</LangVersion>
-    <NuspecFile>$(MSBuildProjectName).nuspec</NuspecFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>https://github.com/efcore/EFCore.SqlServer.HierarchyId/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <None Include="build\**\*">
+      <Pack>True</Pack>
+      <PackagePath>build</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0-rc.1.20451.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,18 +51,5 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
-    <PropertyGroup>
-      <NuspecProperties>$(NuspecProperties);id=$(PackageId)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);version=$(PackageVersion)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);author=$(Authors)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);description=$(Description)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);copyright=$(Copyright)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);configuration=$(Configuration)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);repositoryUrl=$(RepositoryUrl)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);efcoreVersion=@(PackageReference->WithMetadataValue('Identity', 'Microsoft.EntityFrameworkCore.SqlServer')->Metadata('Version'))</NuspecProperties>
-    </PropertyGroup>
-  </Target>
 
 </Project>

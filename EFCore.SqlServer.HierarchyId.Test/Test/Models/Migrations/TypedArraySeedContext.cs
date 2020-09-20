@@ -29,8 +29,8 @@ namespace {rootNamespace}.Migrations
                 name: ""{nameof(TestModels)}"",
                 columns: table => new
                 {{
-                    {nameof(Patriarch.Id)} = table.Column<{nameof(HierarchyId)}>(nullable: false),
-                    {nameof(Patriarch.Name)} = table.Column<string>(nullable: true)
+                    {nameof(Patriarch.Id)} = table.Column<{nameof(HierarchyId)}>(type: ""hierarchyid"", nullable: false),
+                    {nameof(Patriarch.Name)} = table.Column<string>(type: ""nvarchar(max)"", nullable: true)
                 }},
                 constraints: table =>
                 {{

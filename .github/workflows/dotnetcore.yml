@@ -14,9 +14,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@352338157c2141044c16e563b43044c08b839d1c
       with:
-        dotnet-version: 3.1.201
+        dotnet-version: 3.1.x
+    - name: Setup .NET 5
+      uses: actions/setup-dotnet@352338157c2141044c16e563b43044c08b839d1c
+      with:
+        dotnet-version: 5.0.100-rc.1.20452.10
     - name: Install dependencies
       run: dotnet restore
     - name: Build

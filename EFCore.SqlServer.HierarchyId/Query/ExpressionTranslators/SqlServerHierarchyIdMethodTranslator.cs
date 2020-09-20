@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage;
@@ -36,7 +38,11 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators
             _sqlExpressionFactory = sqlExpressionFactory;
         }
 
-        public SqlExpression Translate(SqlExpression instance, MethodInfo method, IReadOnlyList<SqlExpression> arguments)
+        public SqlExpression Translate(
+            SqlExpression instance,
+            MethodInfo method,
+            IReadOnlyList<SqlExpression> arguments,
+            IDiagnosticsLogger<DbLoggerCategory.Query> logger)
         {
             // instance is null for static methods like Parse
             const string storeType = SqlServerHierarchyIdTypeMappingSourcePlugin.SqlServerTypeName;
@@ -44,12 +50,6 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators
             if (typeof(HierarchyId).IsAssignableFrom(callingType)
                 && _methodToFunctionName.TryGetValue(method, out var functionName))
             {
-                if (instance != null)
-                {
-                    var instanceMapping = _typeMappingSource.FindMapping(instance.Type, storeType);
-                    instance = _sqlExpressionFactory.ApplyTypeMapping(instance, instanceMapping);
-                }
-
                 var typeMappedArguments = new List<SqlExpression>();
                 foreach (var argument in arguments)
                 {
@@ -64,10 +64,28 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators
                     ? _typeMappingSource.FindMapping(method.ReturnType, storeType)
                     : _typeMappingSource.FindMapping(method.ReturnType);
 
+
+                if (instance != null)
+                {
+                    var instanceMapping = _typeMappingSource.FindMapping(instance.Type, storeType);
+                    instance = _sqlExpressionFactory.ApplyTypeMapping(instance, instanceMapping);
+
+                    return _sqlExpressionFactory.Function(
+                        instance,
+                        functionName,
+                        simplify(arguments),
+                        nullable: true,
+                        instancePropagatesNullability: true,
+                        argumentsPropagateNullability: arguments.Select(a => true),
+                        method.ReturnType,
+                        resultTypeMapping);
+                }
+
                 return _sqlExpressionFactory.Function(
-                    instance,
                     functionName,
                     simplify(arguments),
+                    nullable: true,
+                    argumentsPropagateNullability: arguments.Select(a => true),
                     method.ReturnType,
                     resultTypeMapping);
             }
