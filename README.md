@@ -66,6 +66,20 @@ var thirdGeneration = from p in dbContext.Patriarchs
                       select p;
 ```
 
+Testing
+-------
+A package for the In-Memory EF Core provider is also available to enable unit testing components that consume HierarchyId data.
+
+```sh
+dotnet add package EntityFrameworkCore.InMemory.HierarchyId
+```
+
+```cs
+options.UseInMemoryDatabase(
+    databaseName,
+    x => x.UseHierarchyId());
+```
+
 See also
 --------
 
