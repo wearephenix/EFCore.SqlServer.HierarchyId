@@ -17,6 +17,7 @@ namespace Microsoft.EntityFrameworkCore
         public static InMemoryDbContextOptionsBuilder UseHierarchyId(
            this InMemoryDbContextOptionsBuilder optionsBuilder)
         {
+            // Work around dotnet/efcore#23669
             var optionsBuilderPropertyInfo = optionsBuilder.GetType().GetProperty("OptionsBuilder", BindingFlags.Instance | BindingFlags.NonPublic);
             var coreOptionsBuilder = optionsBuilderPropertyInfo.GetValue(optionsBuilder) as DbContextOptionsBuilder;
 

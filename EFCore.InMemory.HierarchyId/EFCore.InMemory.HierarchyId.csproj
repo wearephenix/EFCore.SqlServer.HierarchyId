@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>EntityFrameworkCore.InMemory.HierarchyId</AssemblyName>
     <RootNamespace>Microsoft.EntityFrameworkCore.InMemory</RootNamespace>
     <Authors>Adrian Paul Nutiu</Authors>
@@ -14,7 +14,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
+    <Version>1.1.1</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Features>strict</Features>
     <LangVersion>latest</LangVersion>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,18 +44,5 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
-    <PropertyGroup>
-      <NuspecProperties>$(NuspecProperties);id=$(PackageId)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);version=$(PackageVersion)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);author=$(Authors)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);description=$(Description)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);copyright=$(Copyright)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);configuration=$(Configuration)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);repositoryUrl=$(RepositoryUrl)</NuspecProperties>
-      <NuspecProperties>$(NuspecProperties);efcoreVersion=@(PackageReference-&gt;WithMetadataValue('Identity', 'Microsoft.EntityFrameworkCore.SqlServer')-&gt;Metadata('Version'))</NuspecProperties>
-    </PropertyGroup>
-  </Target>
 
 </Project>

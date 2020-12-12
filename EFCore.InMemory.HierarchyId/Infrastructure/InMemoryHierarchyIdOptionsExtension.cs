@@ -11,9 +11,9 @@ namespace Microsoft.EntityFrameworkCore.InMemory.Infrastructure
 {
     internal class InMemoryHierarchyIdOptionsExtension : IDbContextOptionsExtension
     {
-        public DbContextOptionsExtensionInfo info;
+        private DbContextOptionsExtensionInfo _info;
 
-        public DbContextOptionsExtensionInfo Info => info ??= new ExtensionInfo(this);
+        public DbContextOptionsExtensionInfo Info => _info ??= new ExtensionInfo(this);
 
         public virtual void ApplyServices(IServiceCollection services)
         {

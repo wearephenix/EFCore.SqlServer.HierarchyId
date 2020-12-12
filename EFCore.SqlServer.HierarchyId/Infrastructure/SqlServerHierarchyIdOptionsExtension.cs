@@ -13,7 +13,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
 {
     internal class SqlServerHierarchyIdOptionsExtension : IDbContextOptionsExtension
     {
-        public DbContextOptionsExtensionInfo _info;
+        private DbContextOptionsExtensionInfo _info;
 
         public DbContextOptionsExtensionInfo Info => _info ??= new ExtensionInfo(this);
 
