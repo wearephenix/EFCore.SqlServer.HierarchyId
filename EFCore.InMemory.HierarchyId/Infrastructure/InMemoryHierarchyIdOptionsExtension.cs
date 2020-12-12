@@ -2,16 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.SqlServer.Properties;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators;
-using Microsoft.EntityFrameworkCore.SqlServer.Storage;
+using Microsoft.EntityFrameworkCore.InMemory.Properties;
+using Microsoft.EntityFrameworkCore.InMemory.Storage;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
+namespace Microsoft.EntityFrameworkCore.InMemory.Infrastructure
 {
-    internal class SqlServerHierarchyIdOptionsExtension : IDbContextOptionsExtension
+    internal class InMemoryHierarchyIdOptionsExtension : IDbContextOptionsExtension
     {
         private DbContextOptionsExtensionInfo _info;
 
@@ -19,7 +17,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
 
         public virtual void ApplyServices(IServiceCollection services)
         {
-            services.AddEntityFrameworkSqlServerHierarchyId();
+            services.AddEntityFrameworkInMemoryHierarchyId();
         }
 
         public virtual void Validate(IDbContextOptions options)
@@ -29,10 +27,8 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
             {
                 using (var scope = internalServiceProvider.CreateScope())
                 {
-                    if (scope.ServiceProvider.GetService<IEnumerable<IMethodCallTranslatorPlugin>>()
-                            ?.Any(s => s is SqlServerHierarchyIdMethodCallTranslatorPlugin) != true ||
-                        scope.ServiceProvider.GetService<IEnumerable<IRelationalTypeMappingSourcePlugin>>()
-                           ?.Any(s => s is SqlServerHierarchyIdTypeMappingSourcePlugin) != true)
+                    if (scope.ServiceProvider.GetService<IEnumerable<ITypeMappingSourcePlugin>>()
+                           ?.Any(s => s is InMemoryHierarchyIdTypeMappingSourcePlugin) != true)
                     {
                         throw new InvalidOperationException(Resources.ServicesMissing);
                     }
@@ -47,15 +43,15 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
             {
             }
 
-            private new SqlServerHierarchyIdOptionsExtension Extension
-                => (SqlServerHierarchyIdOptionsExtension)base.Extension;
+            private new InMemoryHierarchyIdOptionsExtension Extension
+                => (InMemoryHierarchyIdOptionsExtension)base.Extension;
 
             public override bool IsDatabaseProvider => false;
 
             public override long GetServiceProviderHashCode() => 0;
 
             public override void PopulateDebugInfo(IDictionary<string, string> debugInfo)
-            => debugInfo["SqlServer:" + nameof(SqlServerHierarchyIdDbContextOptionsBuilderExtensions.UseHierarchyId)] = "1";
+            => debugInfo["InMemory:" + nameof(InMemoryHierarchyIdDbContextOptionsBuilderExtensions.UseHierarchyId)] = "1";
 
             public override string LogFragment => "using HierarchyId ";
         }
