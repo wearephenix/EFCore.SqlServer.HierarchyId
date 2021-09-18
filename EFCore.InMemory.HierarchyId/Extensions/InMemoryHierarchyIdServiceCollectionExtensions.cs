@@ -18,10 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
             this IServiceCollection serviceCollection)
         {
             new EntityFrameworkServicesBuilder(serviceCollection)
-                .TryAddProviderSpecificServices(
-                    x => x
-                        .TryAddSingletonEnumerable<ITypeMappingSourcePlugin, InMemoryHierarchyIdTypeMappingSourcePlugin>()
-                );
+                .TryAdd<ITypeMappingSourcePlugin, InMemoryHierarchyIdTypeMappingSourcePlugin>();
 
             return serviceCollection;
         }

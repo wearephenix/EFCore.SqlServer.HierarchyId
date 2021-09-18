@@ -30,6 +30,8 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Test.Models.Migrations
             return $@"using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace {rootNamespace}.Migrations
 {{
     public partial class {migrationName} : Migration
@@ -102,6 +104,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using {ThisType.Namespace};
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
+#nullable disable
 
 namespace {rootNamespace}.Migrations
 {{

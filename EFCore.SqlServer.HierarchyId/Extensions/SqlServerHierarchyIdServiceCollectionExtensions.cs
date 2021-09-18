@@ -20,9 +20,8 @@ namespace Microsoft.Extensions.DependencyInjection
             this IServiceCollection serviceCollection)
         {
             new EntityFrameworkRelationalServicesBuilder(serviceCollection)
-                .TryAddProviderSpecificServices(
-                    x => x.TryAddSingletonEnumerable<IMethodCallTranslatorPlugin, SqlServerHierarchyIdMethodCallTranslatorPlugin>()
-                        .TryAddSingletonEnumerable<IRelationalTypeMappingSourcePlugin, SqlServerHierarchyIdTypeMappingSourcePlugin>());
+                .TryAdd<IMethodCallTranslatorPlugin, SqlServerHierarchyIdMethodCallTranslatorPlugin>()
+                .TryAdd<IRelationalTypeMappingSourcePlugin, SqlServerHierarchyIdTypeMappingSourcePlugin>();
 
             return serviceCollection;
         }

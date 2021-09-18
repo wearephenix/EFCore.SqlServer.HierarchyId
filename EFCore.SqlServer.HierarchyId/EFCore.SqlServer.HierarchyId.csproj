@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EntityFrameworkCore.SqlServer.HierarchyId</AssemblyName>
     <RootNamespace>Microsoft.EntityFrameworkCore.SqlServer</RootNamespace>
     <Authors>Brice Lambson, et al.</Authors>
@@ -10,11 +10,11 @@
     <PackageTags>EFCore;SQL Server;HierarchyId</PackageTags>
     <RepositoryUrl>https://github.com/efcore/EFCore.SqlServer.HierarchyId.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>© 2020 Brice Lambson, et al. All rights reserved.</Copyright>
+    <Copyright>© 2021 Brice Lambson, et al. All rights reserved.</Copyright>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.1.1</Version>
+    <Version>3.0.0-rc1</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Features>strict</Features>
     <LangVersion>latest</LangVersion>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-rc.1.21452.10" />
   </ItemGroup>
 
   <ItemGroup>
