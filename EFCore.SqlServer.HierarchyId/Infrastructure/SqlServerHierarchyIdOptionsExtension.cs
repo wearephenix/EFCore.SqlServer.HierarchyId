@@ -53,9 +53,9 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Infrastructure
             public override bool IsDatabaseProvider => false;
 
             public override int GetServiceProviderHashCode() => 0;
-            
-            public override bool ShouldUseSameServiceProvider(DbContextOptionsExtensionInfo other) 
-                => true;
+
+            public override bool ShouldUseSameServiceProvider(DbContextOptionsExtensionInfo other)
+                => other is ExtensionInfo;
 
             public override void PopulateDebugInfo(IDictionary<string, string> debugInfo)
             => debugInfo["SqlServer:" + nameof(SqlServerHierarchyIdDbContextOptionsBuilderExtensions.UseHierarchyId)] = "1";

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Scaffolding;
 
 namespace Microsoft.EntityFrameworkCore.SqlServer.Scaffolding
@@ -8,7 +10,9 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Scaffolding
         public override MethodCallCodeFragment GenerateProviderOptions()
         {
             return new MethodCallCodeFragment(
-                nameof(SqlServerHierarchyIdDbContextOptionsBuilderExtensions.UseHierarchyId));
+                typeof(SqlServerHierarchyIdDbContextOptionsBuilderExtensions).GetRuntimeMethod(
+                    nameof(SqlServerHierarchyIdDbContextOptionsBuilderExtensions.UseHierarchyId),
+                    new[] { typeof(SqlServerDbContextOptionsBuilder) }));
         }
     }
 }

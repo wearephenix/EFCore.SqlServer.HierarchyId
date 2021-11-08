@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore.SqlServer.HierarchyId", "EFCore.SqlServer.HierarchyId\EFCore.SqlServer.HierarchyId.csproj", "{8F722A02-71A4-4787-ACD8-FB7D5B7AE648}"
 EndProject

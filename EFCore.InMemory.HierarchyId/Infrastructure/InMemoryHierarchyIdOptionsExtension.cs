@@ -51,8 +51,8 @@ namespace Microsoft.EntityFrameworkCore.InMemory.Infrastructure
             public override int GetServiceProviderHashCode() => 0;
 
             public override bool ShouldUseSameServiceProvider(DbContextOptionsExtensionInfo other)
-                => true;
-            
+                => other is ExtensionInfo;
+
             public override void PopulateDebugInfo(IDictionary<string, string> debugInfo)
             => debugInfo["InMemory:" + nameof(InMemoryHierarchyIdDbContextOptionsBuilderExtensions.UseHierarchyId)] = "1";
 
