@@ -21,9 +21,9 @@ The following table show which version of this library to use with which version
 
 | EF Core | Version to use  |
 | ------- | --------------- |
+| 6.0     | 3.x             |
 | 5.0     | 2.x             |
 | 3.1     | 1.x             |
-| 2.1     | (not supported) |
 
 Usage
 -----

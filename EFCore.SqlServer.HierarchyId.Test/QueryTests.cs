@@ -184,15 +184,15 @@ namespace Microsoft.EntityFrameworkCore.SqlServer
                 _db.ChangeTracker.Clear();
 
                 var queried = _db.Patriarchy.Where(e => e.Name.StartsWith("Th")).OrderBy(e => e.Id).ToList();
-                
+
                 Assert.Equal(3, queried.Count);
-                
+
                 Assert.Equal(HierarchyId.Parse("/2/1/"), queried[0].Id);
                 Assert.Equal("Thrór", queried[0].Name);
-                
+
                 Assert.Equal(HierarchyId.Parse("/2/2/"), queried[1].Id);
                 Assert.Equal("Thráin II", queried[1].Name);
-                
+
                 Assert.Equal(HierarchyId.Parse("/3/"), queried[2].Id);
                 Assert.Equal("Thorin Oakenshield", queried[2].Name);
             }
@@ -215,15 +215,15 @@ namespace Microsoft.EntityFrameworkCore.SqlServer
                 _db.ChangeTracker.Clear();
 
                 var queried = _db.ConvertedPatriarchy.Where(e => e.Name.StartsWith("Th")).OrderBy(e => e.Id).ToList();
-                
+
                 Assert.Equal(3, queried.Count);
-                
+
                 Assert.Equal(HierarchyId.Parse("/2/1/").ToString(), queried[0].HierarchyId);
                 Assert.Equal("Thrór", queried[0].Name);
-                
+
                 Assert.Equal(HierarchyId.Parse("/2/2/").ToString(), queried[1].HierarchyId);
                 Assert.Equal("Thráin II", queried[1].Name);
-                
+
                 Assert.Equal(HierarchyId.Parse("/3/").ToString(), queried[2].HierarchyId);
                 Assert.Equal("Thorin Oakenshield", queried[2].Name);
 
@@ -233,15 +233,15 @@ namespace Microsoft.EntityFrameworkCore.SqlServer
                 _db.ChangeTracker.Clear();
 
                 queried = _db.ConvertedPatriarchy.Where(e => e.Name.StartsWith("Th")).OrderBy(e => e.Id).ToList();
-                
+
                 Assert.Equal(3, queried.Count);
-                
+
                 Assert.Equal(HierarchyId.Parse("/2/1/").ToString(), queried[0].HierarchyId);
                 Assert.Equal("Thrór", queried[0].Name);
-                
+
                 Assert.Equal(HierarchyId.Parse("/2/2/").ToString(), queried[1].HierarchyId);
                 Assert.Equal("Thráin II", queried[1].Name);
-                
+
                 Assert.Equal(HierarchyId.Parse("/3/1/").ToString(), queried[2].HierarchyId);
                 Assert.Equal("Thorin Oakenshield", queried[2].Name);
             }

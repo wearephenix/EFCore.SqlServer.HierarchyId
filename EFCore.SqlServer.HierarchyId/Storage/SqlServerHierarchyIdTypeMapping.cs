@@ -1,6 +1,3 @@
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -9,6 +6,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Microsoft.EntityFrameworkCore.SqlServer.Storage
 {
