@@ -73,10 +73,10 @@ namespace Microsoft.EntityFrameworkCore
         /// Gets the node <paramref name="n"/> levels up the hierarchical tree.
         /// </summary>
         /// <param name="n">The number of levels to ascend in the hierarchy.</param>
-        /// <returns>A <see cref="HierarchyId"/> value represengint the <paramref name="n"/>th ancestor of this node or null if <paramref name="n"/> is greater than <see cref="GetLevel"/>.</returns>
+        /// <returns>A <see cref="HierarchyId"/> value representing the <paramref name="n"/>th ancestor of this node or null if <paramref name="n"/> is greater than <see cref="GetLevel"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="n"/> is negative.</exception>
         public HierarchyId GetAncestor(int n)
-            => new HierarchyId(_value.GetAncestor(n));
+            => Wrap(_value.GetAncestor(n));
 
         /// <summary>
         /// Gets the value of a descendant node that is greater than <paramref name="child1"/> and less than <paramref name="child2"/>.
@@ -105,7 +105,7 @@ namespace Microsoft.EntityFrameworkCore
         /// <param name="newRoot">The node that represents the new ancestor.</param>
         /// <returns>A <see cref="HierarchyId"/> value or null if <paramref name="oldRoot"/> or <paramref name="newRoot"/> is null.</returns>
         public HierarchyId GetReparentedValue(HierarchyId oldRoot, HierarchyId newRoot)
-            => new HierarchyId(_value.GetReparentedValue(Unwrap(oldRoot), Unwrap(newRoot)));
+            => Wrap(_value.GetReparentedValue(Unwrap(oldRoot), Unwrap(newRoot)));
 
         /// <summary>
         /// Gets a value indicating whether this node is a descendant of <paramref name="parent"/>.
@@ -171,7 +171,7 @@ namespace Microsoft.EntityFrameworkCore
         /// </summary>
         /// <param name="hid1">The first node to compare.</param>
         /// <param name="hid2">The second node to compare.</param>
-        /// <returns>True if <paramref name="hid1"/> is greather than <paramref name="hid2"/>; otherwise, false.</returns>
+        /// <returns>True if <paramref name="hid1"/> is greater than <paramref name="hid2"/>; otherwise, false.</returns>
         public static bool operator >(HierarchyId hid1, HierarchyId hid2)
         {
             var sh1 = Unwrap(hid1);
