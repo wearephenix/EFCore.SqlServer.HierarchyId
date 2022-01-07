@@ -5,10 +5,6 @@
     <IsPackable>false</IsPackable>
     <AssemblyName>EntityFrameworkCore.InMemory.HierarchyId.Test</AssemblyName>
     <RootNamespace>Microsoft.EntityFrameworkCore.InMemory</RootNamespace>
-    <Features>strict</Features>
-    <LangVersion>latest</LangVersion>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
