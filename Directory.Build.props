@@ -4,8 +4,6 @@
     <Authors>Brice Lambson, et al.</Authors>
     <PackageProjectUrl>https://github.com/efcore/EFCore.SqlServer.HierarchyId</PackageProjectUrl>
     <PackageTags>EFCore;SQL Server;HierarchyId</PackageTags>
-    <RepositoryUrl>https://github.com/efcore/EFCore.SqlServer.HierarchyId.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
     <Copyright>© 2022 Brice Lambson, et al. All rights reserved.</Copyright>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)key.snk</AssemblyOriginatorKeyFile>
@@ -14,6 +12,14 @@
     <LangVersion>latest</LangVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>https://github.com/efcore/EFCore.SqlServer.HierarchyId/releases</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
+  </ItemGroup>
 
 </Project>
