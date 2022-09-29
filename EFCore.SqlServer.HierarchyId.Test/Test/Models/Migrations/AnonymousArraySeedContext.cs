@@ -34,20 +34,20 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MyApp.Data.Migrations
+namespace {rootNamespace}.Migrations
 {{
     /// <inheritdoc />
-    public partial class MyMigration : Migration
+    public partial class {migrationName} : Migration
     {{
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {{
             migrationBuilder.CreateTable(
-                name: ""ConvertedTestModels"",
+                name: ""{nameof(ConvertedTestModels)}"",
                 columns: table => new
                 {{
                     Id = table.Column<int>(type: ""int"", nullable: false),
-                    HierarchyId = table.Column<HierarchyId>(type: ""hierarchyid"", nullable: true),
+                    HierarchyId = table.Column<{nameof(HierarchyId)}>(type: ""hierarchyid"", nullable: true),
                     Name = table.Column<string>(type: ""nvarchar(max)"", nullable: true)
                 }},
                 constraints: table =>
@@ -56,15 +56,15 @@ namespace MyApp.Data.Migrations
                 }});
 
             migrationBuilder.CreateTable(
-                name: ""TestModels"",
+                name: ""{nameof(TestModels)}"",
                 columns: table => new
                 {{
-                    Id = table.Column<HierarchyId>(type: ""hierarchyid"", nullable: false),
-                    Name = table.Column<string>(type: ""nvarchar(max)"", nullable: true)
+                    {nameof(Patriarch.Id)} = table.Column<{nameof(HierarchyId)}>(type: ""hierarchyid"", nullable: false),
+                    {nameof(Patriarch.Name)} = table.Column<string>(type: ""nvarchar(max)"", nullable: true)
                 }},
                 constraints: table =>
                 {{
-                    table.PrimaryKey(""PK_TestModels"", x => x.Id);
+                    table.PrimaryKey(""PK_{nameof(TestModels)}"", x => x.{nameof(Patriarch.Id)});
                 }});
 
             migrationBuilder.InsertData(
@@ -95,7 +95,7 @@ namespace MyApp.Data.Migrations
                 name: ""ConvertedTestModels"");
 
             migrationBuilder.DropTable(
-                name: ""TestModels"");
+                name: ""{nameof(TestModels)}"");
         }}
     }}
 }}
