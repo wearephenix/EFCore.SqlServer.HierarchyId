@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EntityFrameworkCore.InMemory.HierarchyId</AssemblyName>
     <RootNamespace>Microsoft.EntityFrameworkCore.InMemory</RootNamespace>
     <Authors>Adrian Paul Nutiu</Authors>
@@ -21,8 +21,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0-preview.2.23128.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Abstractions" Version="8.0.0-preview.2.23128.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Abstractions" Version="8.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="all" />
   </ItemGroup>
 
