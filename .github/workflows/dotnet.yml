@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set VERSION variable from branch
-      run: echo "VERSION=$(echo $GITHUB_REF | cut -d'/' -f 5)" >> $GITHUB_ENV
+      run: echo "VERSION=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -31,5 +31,4 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration  Release --output ./build /p:Version=${VERSION}
     - name: Push
-      run: |
-          dotnet nuget push build/*${VERSION}.nupkg --source https://nuget.pkg.github.com/wearephenix --api-key ${{github.token}}
+      run: dotnet nuget push build/*${VERSION}.nupkg --source https://nuget.pkg.github.com/wearephenix --api-key ${{github.token}}
