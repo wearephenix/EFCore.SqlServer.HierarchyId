@@ -29,6 +29,6 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
     - name: Pack
-      run: dotnet pack --configuration  Release --output ./bin /p:Version=${VERSION}
+      run: dotnet pack --configuration  Release --output ./build /p:Version=${VERSION}
     - name: Push
       run: dotnet nuget push build/*${VERSION}.nupkg --source https://nuget.pkg.github.com/wearephenix --api-key ${{github.token}}
