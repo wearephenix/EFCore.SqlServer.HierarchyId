@@ -31,5 +31,4 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration  Release --output ./bin /p:Version=${VERSION}
     - name: Push
-      run: |
-          dotnet nuget push build/*${VERSION}.nupkg --source https://nuget.pkg.github.com/wearephenix --api-key ${{github.token}}
+      run: dotnet nuget push build/*${VERSION}.nupkg --source https://nuget.pkg.github.com/wearephenix --api-key ${{github.token}}
