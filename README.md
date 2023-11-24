@@ -1,3 +1,8 @@
+Microsoft choose not to publish this package for .NET 8, but the code was updated.
+-------
+So here are our private fork, let's hope that we won't need to update this in the future
+-------
+
 EntityFrameworkCore.SqlServer.HierarchyId
 ========================================
 
