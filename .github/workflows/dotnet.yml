@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - main
+    - release/*
   pull_request:
     branches:
     - main
@@ -11,10 +12,12 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+    - name: Set VERSION variable from branch
+      run: echo "VERSION=$(echo $GITHUB_REF | cut -d'/' -f 5)" >> $GITHUB_ENV
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -23,11 +26,10 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore --configuration Release
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        path: |
-          **\\*.nupkg
-          **\\*.snupkg
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
+    - name: Pack
+      run: dotnet pack --configuration  Release --output ./bin /p:Version=${VERSION}
+    - name: Push
+      run: |
+          dotnet nuget push build/*${VERSION}.nupkg --source https://nuget.pkg.github.com/wearephenix --api-key ${{github.token}}
